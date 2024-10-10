@@ -1,0 +1,24 @@
+<div class="todo-container">
+    <h1>TODOS</h1>
+    <div class="tabs">
+        <div class="tab active">Incomplete</div>
+        <div class="tab">Complete</div>
+    </div>
+    <div class="input-group">
+        <%= form_with(model: Todo.new, local: true) do |form| %>
+            <%= form.text_field :description, placeholder: "Name" %>
+            <button class="create-todo">Create Todo</button>
+        <% end %>
+    </div>
+    <ul class="todo-list">
+        <% @todos_incomplete.each do |todo| %>
+        <li class="todo-item">
+            <span><%= todo.description %></span>
+            <div class="todo-actions">
+                <%= link_to "✔️", complete_todo_path(todo), method: :patch, class: "complete-todo" %>
+                <%= link_to "🗑️", todo_path(todo), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-todo" %>
+            </div>
+        </li>
+        <% end %>
+    </ul>
+</div>
